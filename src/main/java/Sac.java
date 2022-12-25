@@ -5,7 +5,10 @@ public class Sac {
     LinkedList<Tuile> contenu;
     int nombrePiece;
 
-    public Sac () {
+    Table table;
+
+    public Sac (Table table) {
+        this.table=table;
         contenu = new LinkedList<Tuile>();
     }
 
