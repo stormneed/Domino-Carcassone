@@ -33,7 +33,7 @@ public class Sac {
       while(nombrePiece<nbr) {
           genereSacRec(nbr);
       }
-       // melanger();
+        melanger();
     }
 
 
