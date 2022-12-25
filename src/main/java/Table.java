@@ -1,4 +1,3 @@
-package main.java;
 
 import java.util.Objects;
 
@@ -56,7 +55,7 @@ public class Table {
                     if (tuile == null) {
                         System.out.print("*   *|");
                     } else {
-                        System.out.print(tuile.bords[3].charAt(j) + "   " + tuile.bords[1].charAt(j) + "|");
+                        System.out.print(tuile.bords[3].charAt(2-j) + "   " + tuile.bords[1].charAt(j) + "|");
                     }
                 }
             }
@@ -67,7 +66,7 @@ public class Table {
                 if (tuile == null) {
                     System.out.print("*** |");
                 } else {
-                    System.out.print(tuile.bords[2] + " |");
+                    System.out.print(""+tuile.bords[2].charAt(2) +""+ tuile.bords[2].charAt(1)+""+ tuile.bords[2].charAt(0)+" |");
                 }
             }
             System.out.println();
