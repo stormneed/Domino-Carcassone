@@ -21,6 +21,7 @@ public class Partie {
             table.afficheCons();
             jouerTourCons();
         }
+        System.out.println("Fin de la partie");
     }
 
     public void jouerTourCons() {
