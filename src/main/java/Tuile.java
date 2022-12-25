@@ -30,12 +30,12 @@ public class Tuile {
 
     public void afficheTuile() {
         System.out.println("Piece actuelle : ");
-        System.out.println(" ----- ");
+        System.out.println((char)27+"[4m       "+(char)27+"[0m");
         System.out.println("| " + bords[0] + " |");
         System.out.println("|" + bords[3].charAt(2) + "   " + bords[1].charAt(0) + "|");
         System.out.println("|" + bords[3].charAt(1) + "   " + bords[1].charAt(1) + "|");
         System.out.println("|" + bords[3].charAt(0) + "   " + bords[1].charAt(2) + "|");
-        System.out.println("| " + bords[2].charAt(2) + bords[2].charAt(1) + bords[2].charAt(0) + " |");
+        System.out.println((char)27+"[4m| " + bords[2].charAt(2) + bords[2].charAt(1) + bords[2].charAt(0) + " |"+(char)27+"[0m");
         System.out.println(" ----- ");
     }
 

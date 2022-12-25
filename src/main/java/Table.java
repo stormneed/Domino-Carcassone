@@ -66,39 +66,36 @@ public class Table {
     }
 
     public void afficheCons(){
-        for (int i = 0; i < plateau.length; i++) {
-            for (int j = 0; j < plateau[i].length; j++) {
-                System.out.print((char)27+"[0m ");
-                if(plateau[i][j]==null){
+        for (Tuile[] tuiles : plateau) {
+            for (Tuile tuile : tuiles) {
+                System.out.print((char) 27 + "[0m ");
+                if (tuile == null) {
                     System.out.print("*** |");
-                }
-                else {
-                    System.out.print(plateau[i][j].bords[0] + " |");
+                } else {
+                    System.out.print(tuile.bords[0] + " |");
                 }
             }
             for (int j = 0; j < 3; j++) {
                 System.out.println();
-                for (int k = 0; k < plateau[i].length; k++) {
-                    if(plateau[i][k]==null){
+                for (Tuile tuile : tuiles) {
+                    if (tuile == null) {
                         System.out.print("*   *|");
-                    }
-                    else {
-                        System.out.print(plateau[i][k].bords[3].charAt(j) + "   " +plateau[i][k].bords[1].charAt(j)+"|");
+                    } else {
+                        System.out.print(tuile.bords[3].charAt(j) + "   " + tuile.bords[1].charAt(j) + "|");
                     }
                 }
             }
 
             System.out.println();
-            for (int j = 0; j < plateau[i].length; j++) {
-                System.out.print((char)27+"[4m ");
-                if(plateau[i][j]==null){
+            for (Tuile tuile : tuiles) {
+                System.out.print((char) 27 + "[4m ");
+                if (tuile == null) {
                     System.out.print("*** |");
-                }
-                else {
-                    System.out.print(plateau[i][j].bords[2] + " |");
+                } else {
+                    System.out.print(tuile.bords[2] + " |");
                 }
             }
-            System.out.println();
+            System.out.println((char) 27 + "[0m");
 
         }
     }
