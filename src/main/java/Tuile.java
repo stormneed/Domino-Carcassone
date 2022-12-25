@@ -3,7 +3,8 @@
 public class Tuile {
     String[] bords;
 
-    public Tuile () { // Tuile vide
+    public Tuile () {
+        bords=new String[4];// Tuile vide
     }
 
     public Tuile (String bordNord, String bordEst, String bordSud, String bordOuest) {
@@ -42,10 +43,11 @@ public class Tuile {
     }
 
     public static Tuile genereTuile(String bord){
+        String s=""+bord.charAt(2)+bord.charAt(1)+bord.charAt(0);
         Tuile t=new Tuile();
-        t.bords[(int)(Math.random()*5)]=bord;
-        for (int i = 0; i < t.bords.length; i++) {
-            if(t.bords[i]!=null){
+        t.bords[(int)(Math.random()*4)]=s;
+        for (int i = 0; i < 4; i++) {
+            if(t.bords[i]==null){
                 t.bords[i]=""+(int)(Math.random()*5)+(int)(Math.random()*5)+(int)(Math.random()*5);
             }
         }

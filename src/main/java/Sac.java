@@ -15,10 +15,10 @@ public class Sac {
     private void genereSacRec(int nbr){
         Tuile tmp=contenu.getLast();
         for (int i = 0; i < 4; i++) {
-            if (nombrePiece < nbr) {
+            if (nombrePiece < nbr-1) {
                 contenu.add(Tuile.genereTuile(tmp.bords[i]));
-                nbr++;
-                if (Math.random() < 0.5) genereSac(nbr);
+                nombrePiece++;
+                if (Math.random() < 0.5) genereSacRec(nbr);
             }
         }
     }
@@ -27,7 +27,7 @@ public class Sac {
         Tuile tmp=Tuile.genereTuile(""+(int)(Math.random()*5)+(int)(Math.random()*5)+(int)(Math.random()*5));
         contenu.add(tmp);
         genereSacRec(nbr);
-        melanger();
+       // melanger();
     }
 
 
