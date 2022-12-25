@@ -21,7 +21,7 @@ public class Sac {
             if (nombrePiece < nbr) {
                 contenu.add(Tuile.genereTuile(tmp.bords[i]));
                 nombrePiece++;
-                if (Math.random() < 0.25) genereSacRec(nbr);
+                if (Math.random() < 0.10*i) genereSacRec(nbr);
             }
         }
     }
@@ -33,7 +33,7 @@ public class Sac {
       while(nombrePiece<nbr) {
           genereSacRec(nbr);
       }
-        melanger();
+       // melanger();
     }
 
 
