@@ -2,20 +2,22 @@ public class Joueur {
     Tuile pieceMain;
     Partie partie;
 
-    public int piocher () {
+    public void piocher () {
         if (pieceMain==null) {
             pieceMain = partie.sac.piocher();
-            return 1;
         }
-        return 0;
     }
 
     public void defausser () {
         pieceMain = null;
     }
 
-    public int poser (int coordX, int coordY) {
+    public boolean poser (int coordX, int coordY) {
         return partie.table.pose(pieceMain, coordX, coordY);
+    }
+
+    public void abandon () {
+        partie.abandon(this);
     }
 
 
