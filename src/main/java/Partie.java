@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Partie {
     Sac sac;
@@ -6,7 +7,17 @@ public class Partie {
     Table table;
     int indexJoueur;
 
+    public Partie (int nombreJoueur, Table table, Sac sac) {
+        this.joueurs=new ArrayList<Joueur>();
+        for (int i=0; i<nombreJoueur; i++) {
+            joueurs.add(new Joueur(this));
+        }
+        this.table=table;
+        this.sac=sac;
+    }
+
     public Joueur joueurSuivant () {
+        System.out.println("Tour de joueur " + (indexJoueur+1));
         Joueur returnJoueur = joueurs.get(indexJoueur);
         if (indexJoueur==joueurs.size()-1) {
             indexJoueur=0;
@@ -17,8 +28,11 @@ public class Partie {
     }
 
     public void jouerPartieCons () {
+        table.premierePose(sac.piocher());
         while (!estFini()) {
+            System.out.println("------------------------------------------------------------");
             table.afficheCons();
+            System.out.println();
             jouerTourCons();
         }
         System.out.println("Fin de la partie");
@@ -28,24 +42,33 @@ public class Partie {
         Joueur joueurActuel = joueurSuivant();
         joueurActuel.pieceMain.afficheTuile();
         boolean tourTerminer = false;
+        Scanner scan = new Scanner(System.in);
         while (!tourTerminer) {
-
-            String scan = ""; // Scanner
-            if (scan.equals("p")) { //pose
-                String scanposX = ""; // Scanner X
-                String scanposY = ""; // Scanner Y
-                tourTerminer = joueurActuel.poser(Integer.valueOf(scanposX), Integer.valueOf(scanposY));
+            System.out.print("Veuillez choisir une action : p (pose) / d (defaussez) / a (abandon) : "  );
+            String input = scan.nextLine();
+            if (input.equals("p")) { //pose
+                System.out.println("Entrez la coordonnée X : ");
+                String scanposX = scan.nextLine() ; // Scanner X
+                System.out.println("Entrez la coordonnée Y : ");
+                String scanposY = scan.nextLine(); // Scanner Y
+                tourTerminer = joueurActuel.poser(Integer.valueOf(scanposX)-1, Integer.valueOf(scanposY)-1);
             }
-            if (scan.equals("d")) { //defausse
+            else if (input.equals("d")) { //defausse
                 joueurActuel.defausser();
                 tourTerminer=true;
+                System.out.println("defausse");
             }
-            if (scan.equals("a")) { //abandon
-                 joueurActuel.abandon();
+            else if (input.equals("a")) { //abandon
+                joueurActuel.abandon();
                 tourTerminer=true;
+                System.out.println("Abandon de Joueur " + (indexJoueur+1));
             }
-
+            else {
+                System.out.println("Action non reconnu");
+            }
         }
+
+        
     }
 
 

@@ -2,6 +2,11 @@ public class Joueur {
     Tuile pieceMain;
     Partie partie;
 
+    public Joueur (Partie partie) {
+        this.partie=partie;
+        this.pieceMain=null;
+    }
+
     public void piocher () {
         if (pieceMain==null) {
             pieceMain = partie.sac.piocher();
