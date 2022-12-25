@@ -22,10 +22,6 @@ public class Sac {
         Collections.shuffle(contenu);
     }
 
-    public void defausser (Tuile piece) {
-        ajouter(piece);
-        melanger();
-    }
 
     
 
