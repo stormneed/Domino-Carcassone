@@ -56,12 +56,14 @@ public class Table {
         this.plateau[this.plateau.length/2][this.plateau.length/2]=piece;
     }
 
-    public void pose(Tuile piece, int coordX, int coordY){
+    public int pose(Tuile piece, int coordX, int coordY){
         if(estPosable(piece,coordX,coordY)){
             this.plateau[coordX][coordY]=piece;
+            return 1;
         }
         else{
             System.out.println("Placement impossible");
+            return 0;
         }
     }
 
