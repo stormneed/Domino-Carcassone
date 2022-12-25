@@ -7,7 +7,7 @@ public class Test {
         Tuile p2 = new Tuile ("000","000","321","000");
         t.premierePose(p1);
         t.afficheCons();
-        p1.afficheTuile();
+        p2.afficheTuile();
         t.pose(p2, 1, 2);
         t.afficheCons();
 

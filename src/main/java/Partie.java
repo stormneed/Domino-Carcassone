@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Partie {
     Sac sac;
     ArrayList<Joueur> joueurs;
+    Table table;
 
     
     

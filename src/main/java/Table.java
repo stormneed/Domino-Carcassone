@@ -10,11 +10,11 @@ public class Table {
         return this.plateau[coordX][coordY];
     }
 
-    public static String reverseString(String str){  
-        StringBuilder sb=new StringBuilder(str);  
-        sb.reverse();  
-        return sb.toString();  
-    }  
+    public static String reverseString(String str){
+        StringBuilder sb=new StringBuilder(str);
+        sb.reverse();
+        return sb.toString();
+    }
 
     public boolean estPosable (Tuile piece, int coordX, int coordY) {
         if (coordX>0 && plateau[coordX-1][coordY]!=null &&!(plateau[coordX-1][coordY].bords[2].equals(reverseString(piece.bords[0])))) {
@@ -33,7 +33,7 @@ public class Table {
             return plateau[coordX][coordY]==null;
         }
         return false;
-        
+
     }
 
     public boolean estAdjacent (int coordX, int coordY) {
@@ -81,7 +81,7 @@ public class Table {
                     if (tuile == null) {
                         System.out.print("*   *|");
                     } else {
-                        System.out.print(tuile.bords[3].charAt(j) + "   " + tuile.bords[1].charAt(j) + "|");
+                        System.out.print(tuile.bords[3].charAt(2-j) + "   " + tuile.bords[1].charAt(j) + "|");
                     }
                 }
             }
@@ -92,10 +92,10 @@ public class Table {
                 if (tuile == null) {
                     System.out.print("*** |");
                 } else {
-                    System.out.print(tuile.bords[2] + " |");
+                    System.out.print(""+tuile.bords[2].charAt(2) +""+ tuile.bords[2].charAt(1)+""+ tuile.bords[2].charAt(0)+" |");
                 }
             }
-            System.out.println((char) 27 + "[0m");
+            System.out.println((char)27+"[0m");
 
         }
     }
