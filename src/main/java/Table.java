@@ -62,7 +62,7 @@ public class Table {
         if (estAdjacentOuest(coordX, coordY)) {
             return true;
         }
-        if (estAdjacentSud(coordX, coordY)) {
+        if (estAdjacentEst(coordX, coordY)) {
             return true;
         }
         return false;
@@ -72,9 +72,10 @@ public class Table {
         this.plateau[this.plateau.length/2][this.plateau.length/2]=piece;
     }
 
-    public boolean pose(Tuile piece, int coordX, int coordY){
+    public boolean pose(Tuile piece, int coordX, int coordY, Joueur j){
         if(estPosable(piece,coordX,coordY)){
             this.plateau[coordX][coordY]=piece;
+            j.pieceMain=null;
             return true;
         }
         else{

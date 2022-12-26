@@ -21,7 +21,7 @@ public class Joueur {
     }
 
     public boolean poser (int coordX, int coordY) {
-        return partie.table.pose(pieceMain, coordX, coordY);
+        return partie.table.pose(pieceMain, coordX, coordY, this);
     }
 
     public void abandon () {
