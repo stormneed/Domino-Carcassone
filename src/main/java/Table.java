@@ -36,17 +36,33 @@ public class Table {
 
     }
 
+    public boolean estAdjacentNord (int coordX, int coordY) {
+        return coordX>0 && plateau[coordX-1][coordY]!=null;
+    }
+
+    public boolean estAdjacentSud (int coordX, int coordY) {
+        return coordX<plateau.length-1 && plateau[coordX+1][coordY]!=null;
+    }
+
+    public boolean estAdjacentOuest (int coordX, int coordY) {
+        return coordY>0 && plateau[coordX][coordY-1]!=null;
+    }
+
+    public boolean estAdjacentEst (int coordX, int coordY) {
+        return coordY<plateau.length-1 && plateau[coordX][coordY+1]!=null;
+    }
+
     public boolean estAdjacent (int coordX, int coordY) {
-        if (coordX>0 && plateau[coordX-1][coordY]!=null) {
+        if (estAdjacentNord(coordX, coordY)) {
             return true;
         }
-        if (coordX<plateau.length-1 && plateau[coordX+1][coordY]!=null) {
+        if (estAdjacentSud(coordX, coordY)) {
             return true;
         }
-        if (coordY>0 && plateau[coordX][coordY-1]!=null) {
+        if (estAdjacentOuest(coordX, coordY)) {
             return true;
         }
-        if (coordY<plateau.length-1 && plateau[coordX][coordY+1]!=null) {
+        if (estAdjacentSud(coordX, coordY)) {
             return true;
         }
         return false;

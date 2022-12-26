@@ -1,10 +1,13 @@
 public class Joueur {
     Tuile pieceMain;
     Partie partie;
+    int score;
+    int numero;
 
-    public Joueur (Partie partie) {
+    public Joueur (Partie partie, int i) {
         this.partie=partie;
         this.pieceMain=null;
+        numero = i;
     }
 
     public void piocher () {
@@ -23,6 +26,10 @@ public class Joueur {
 
     public void abandon () {
         partie.abandon(this);
+    }
+
+    public void afficheScore () {
+        System.out.println("Score : " + score);
     }
 
 
