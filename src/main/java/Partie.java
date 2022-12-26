@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Partie {
@@ -43,16 +44,31 @@ public class Partie {
         joueurActuel.pieceMain.afficheTuile();
         boolean tourTerminer = false;
         Scanner scan = new Scanner(System.in);
+        int scanposX = -1;
+        int scanposY = -1;
         while (!tourTerminer) {
             System.out.print("Veuillez choisir une action : p (pose) / d (defaussez) / a (abandon)/ l (tourne vers la gauche)/ r (tourne vers la droite)"  );
             String input = scan.nextLine();
             switch (input) {
                 case "p" -> {  //pose
                     System.out.println("Entrez la coordonnée X : ");
-                    String scanposX = scan.nextLine(); // Scanner X
-                    System.out.println("Entrez la coordonnée Y : ");
-                    String scanposY = scan.nextLine(); // Scanner Y
-                    tourTerminer = joueurActuel.poser(Integer.valueOf(scanposX) - 1, Integer.valueOf(scanposY) - 1);
+                    try {
+                        scanposX = scan.nextInt();
+                        System.out.println("Entrez la coordonnée Y : ");
+                        try {
+                            scanposY = scan.nextInt();
+                            tourTerminer = joueurActuel.poser(scanposY - 1, scanposX - 1);
+                            input = scan.nextLine();
+                        }
+                        catch (InputMismatchException exception) {
+                            System.out.println("Veuillez entrez un entier seulement");
+                            input = scan.nextLine();
+                        }
+                    }
+                    catch (InputMismatchException exception) {
+                        System.out.println("Veuillez entrez un entier seulement");
+                        input = scan.nextLine();
+                    }
                 }
                 case "d" -> {  //defausse
                     joueurActuel.defausser();
@@ -66,10 +82,12 @@ public class Partie {
                 }
                 case "l" -> {
                     joueurActuel.pieceMain.tourneGauche();
+                    joueurActuel.pieceMain.afficheTuile();
                     break;
                 }
                 case "r" -> {
                     joueurActuel.pieceMain.tourneDroite();
+                    joueurActuel.pieceMain.afficheTuile();
                     break;
                 }
                 default -> System.out.println("Action non reconnu");
