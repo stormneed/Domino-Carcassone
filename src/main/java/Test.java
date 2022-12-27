@@ -8,7 +8,7 @@ public class Test {
         Table t = new Table(7);
         Sac s = new Sac(t);
         s.remplirSacDefaut();
-        /*PartieCons p = new PartieCons(2, t, s);
+        /*PartieCons p = new PartieCons(3, 2, t, s);
         p.jouerPartieCons();*/
         Window p=new Window(2, t, s);
         TuileCarc tuile=new TuileCarc("V","R","P","R",false, false,false);

@@ -36,6 +36,28 @@ public class Table {
 
     }
 
+    public boolean possedeBordValide (Tuile piece, int coordX, int coordY) {
+        Tuile target = plateau[coordX][coordY];
+        if (piece.bords[0].equals(target.bords[0]) || piece.bords[0].equals(target.bords[1])
+         || piece.bords[0].equals(reverseString(target.bords[2])) || piece.bords[0].equals(reverseString(target.bords[3]))) {
+            return true;
+        }
+        if (piece.bords[1].equals(target.bords[0]) || piece.bords[1].equals(target.bords[1])
+         || piece.bords[1].equals(reverseString(target.bords[2])) || piece.bords[1].equals(reverseString(target.bords[3]))) {
+            return true;
+        }
+        if (piece.bords[2].equals(target.bords[2]) || piece.bords[2].equals(target.bords[3])
+         || piece.bords[2].equals(reverseString(target.bords[0])) || piece.bords[2].equals(reverseString(target.bords[1]))) {
+            return true;
+        }
+        if (piece.bords[3].equals(target.bords[2]) || piece.bords[3].equals(target.bords[3])
+         || piece.bords[3].equals(reverseString(target.bords[1])) || piece.bords[0].equals(reverseString(target.bords[2]))) {
+            return true;
+        }
+        return false;
+
+    }
+
     public boolean estAdjacentNord (int coordX, int coordY) {
         return coordX>0 && plateau[coordX-1][coordY]!=null;
     }
