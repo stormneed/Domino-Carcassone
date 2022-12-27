@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.io.File;
+
 public class Test {
     
 
@@ -5,8 +8,15 @@ public class Test {
         Table t = new Table(7);
         Sac s = new Sac(t);
         s.remplirSacDefaut();
-        PartieCons p = new PartieCons(2, t, s);
-        p.jouerPartieCons();
+        /*PartieCons p = new PartieCons(2, t, s);
+        p.jouerPartieCons();*/
+        Window p=new Window(2, t, s);
+        TuileCarc tuile=new TuileCarc();
+        TuileGraph tg=new TuileGraph(tuile);
+
+        p.poser(1,1,tg);
+
+
 
 
 
