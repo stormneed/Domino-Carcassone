@@ -3,11 +3,13 @@ public class Joueur {
     Partie partie;
     int score;
     int numero;
+    boolean estIA;
 
-    public Joueur (Partie partie, int i) {
+    public Joueur (Partie partie, int i, boolean iA) {
         this.partie=partie;
         this.pieceMain=null;
         numero = i;
+        estIA=iA;
     }
 
     public void piocher () {
