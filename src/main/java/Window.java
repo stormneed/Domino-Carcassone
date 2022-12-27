@@ -17,12 +17,7 @@ public class Window extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void poser(int x, int y, TuileGraph t){
-        content.grid.remove(y*content.p.table.plateau.length+x);
-        content.grid.add(t,y*content.p.table.plateau.length+x);
-        content.revalidate();
 
-    }
 
     public class Menu extends JPanel{
         public Menu(){

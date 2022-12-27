@@ -11,10 +11,10 @@ public class Test {
         /*PartieCons p = new PartieCons(2, t, s);
         p.jouerPartieCons();*/
         Window p=new Window(2, t, s);
-        TuileCarc tuile=new TuileCarc();
+        TuileCarc tuile=new TuileCarc("V","R","P","R",false, false,false);
         TuileGraph tg=new TuileGraph(tuile);
 
-        p.poser(1,1,tg);
+        p.content.poser(2,2,tg);
 
 
 

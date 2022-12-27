@@ -22,7 +22,7 @@ public class PartieGraph extends JPanel {
         for(int i=0;i<nombreJoueur;i++){
             score[i]=new JLabel();
             score[i].setText("Joueur"+ (i+1) +"=0");
-            score[i].setFont(new Font("Impact",0,50));
+            score[i].setFont(new Font("Impact",Font.PLAIN,50));
             score[i].setAlignmentY(CENTER_ALIGNMENT);
             scores.add(score[i]);
         }
@@ -36,6 +36,13 @@ public class PartieGraph extends JPanel {
         this.add(grid,BorderLayout.CENTER);
         this.add(scores,BorderLayout.EAST);
         this.setVisible(true);
+    }
+
+    public void poser(int x, int y, TuileGraph t){
+        grid.remove(y*p.table.plateau.length+x);
+        grid.add(t,y*p.table.plateau.length+x);
+        revalidate();
+
     }
 
 
