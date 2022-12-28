@@ -11,7 +11,7 @@ public class Test {
         TuileCarc tuile=new TuileCarc("P","R","R","R",true, false,false);
         TuileGraph tg=new TuileGraph(tuile);
 
-        p.content.poser(2,2,tg);
+        p.content.poser(3,3,tg);
 
 
 
