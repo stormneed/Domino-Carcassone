@@ -7,12 +7,15 @@ public class Partie {
     int indexJoueur;
 
     public Partie (int nombreJoueur, int nombreIA, Table table, Sac sac) {
+        int num = 1;
         this.joueurs=new ArrayList<Joueur>();
-        for (int i=1; i<=nombreJoueur-nombreIA; i++) {
-            joueurs.add(new Joueur(this,i,false));
+        for (int i=0; i<nombreJoueur-nombreIA; i++) {
+            joueurs.add(new Joueur(this,num,false));
+            num++;
         }
-        for (int j=1; j<=nombreIA; j++) {
-            joueurs.add(new Joueur(this,joueurs.size()+j-1,true));
+        for (int i=0; i<nombreIA; i++) {
+            joueurs.add(new Joueur(this,num,true));
+            num++;
         }
         this.table=table;
         this.sac=sac;

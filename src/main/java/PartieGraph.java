@@ -8,10 +8,11 @@ public class PartieGraph extends JPanel {
 
     JLabel[] score;
     JPanel scores;
+    JPanel main;
 
-    public PartieGraph(int nombreJoueur, Table table, Sac sac){
+    public PartieGraph(int nombreJoueur, int nombreIA, Table table, Sac sac){
         this.setLayout(new BorderLayout());
-        p=new Partie(nombreJoueur, table, sac);
+        p=new Partie(nombreJoueur, nombreIA, table, sac);
         grid=new JPanel();
         grid.setLayout(new GridLayout(p.table.plateau.length,p.table.plateau.length));
         grid.setSize((int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight(),(int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight());
@@ -33,6 +34,7 @@ public class PartieGraph extends JPanel {
             label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             grid.add(label);
         }
+
         this.add(grid,BorderLayout.CENTER);
         this.add(scores,BorderLayout.EAST);
         this.setVisible(true);
@@ -48,8 +50,8 @@ public class PartieGraph extends JPanel {
 
     public class PartieFonc extends Partie{
 
-        public PartieFonc(int nombreJoueur, Table table, Sac sac) {
-            super(nombreJoueur, table, sac);
+        public PartieFonc(int nombreJoueur, int nombreIA, Table table, Sac sac) {
+            super(nombreJoueur, nombreIA, table, sac);
         }
     }
 
