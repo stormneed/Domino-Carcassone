@@ -26,11 +26,12 @@ public class PartieCons extends Partie{
 
     public void jouerTourCons() {
         Joueur joueurActuel = joueurSuivant();
+        System.out.println("Tour de joueur " + joueurActuel.numero);
         joueurActuel.afficheScore();
-        joueurActuel.pieceMain.afficheTuile();
+        ((Tuile)joueurActuel.pieceMain).afficheTuile();
         boolean tourTerminer = false;
         if (joueurActuel.estIA) {
-            tourIA((joueurActuel.pieceMain), joueurActuel);
+            tourIA(((Tuile)joueurActuel.pieceMain), joueurActuel);
             
         }
         else {
@@ -73,13 +74,13 @@ public class PartieCons extends Partie{
                         System.out.println("Abandon de Joueur " + (indexJoueur + 1));
                     }
                     case "l" -> {
-                        joueurActuel.pieceMain.tourneGauche();
-                        joueurActuel.pieceMain.afficheTuile();
+                        ((Tuile)joueurActuel.pieceMain).tourneGauche();
+                        ((Tuile)joueurActuel.pieceMain).afficheTuile();
                         break;
                     }
                     case "r" -> {
-                        joueurActuel.pieceMain.tourneDroite();
-                        joueurActuel.pieceMain.afficheTuile();
+                        ((Tuile)joueurActuel.pieceMain).tourneDroite();
+                        ((Tuile)joueurActuel.pieceMain).afficheTuile();
                         break;
                     }
                     default -> System.out.println("Action non reconnu");

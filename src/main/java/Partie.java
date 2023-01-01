@@ -23,7 +23,7 @@ public class Partie {
 
     public Joueur joueurSuivant () {
         Joueur returnJoueur = joueurs.get(indexJoueur);
-        System.out.println("Tour de joueur " + returnJoueur.numero);
+
         if (indexJoueur==joueurs.size()-1) {
             indexJoueur=0;
         }

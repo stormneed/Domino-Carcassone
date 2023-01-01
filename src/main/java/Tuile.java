@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Tuile {
+public class Tuile implements TuileType {
     String[] bords;
 
     public Tuile () {
