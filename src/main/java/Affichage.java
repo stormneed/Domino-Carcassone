@@ -105,24 +105,4 @@ public class Affichage extends JPanel {
         this.setVisible(true);
     }
 
-    public void poser(int index) {
-        if (pioché != null) {
-            grid.remove(index);
-            grid.add(pioché, index);
-            main.add(Box.createGlue(), 2);
-            for (Component b : this.grid.getComponents()) {
-                if (!(b instanceof TuileGraph))
-                    b.setEnabled(false);
-            }
-            main.remove(1);
-            main.add(Box.createGlue(), 1);
-            revalidate();
-        } else {
-            JLabel info = new JLabel("Cliquez ici pour piocher ->");
-            info.setVerticalAlignment(SwingConstants.BOTTOM);
-            window.add(info, BorderLayout.WEST);
-        }
-
-    }
-
 }

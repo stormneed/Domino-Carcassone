@@ -49,7 +49,7 @@ public class PartieGraph extends Partie {
     }
 
     public void poser(int index) {
-        // JLabel info = new JLabel("Placement Impossible, réessayez");
+        JLabel info = new JLabel("Placement Impossible, réessayez");
         if (table.estPosable(aff.pioché.tuile, index / 11, index % 11)) {
             table.pose(aff.pioché.tuile, index / 11, index % 11, joueurs.get(indexJoueur));
             aff.grid.remove(index);
@@ -61,17 +61,15 @@ public class PartieGraph extends Partie {
             }
             aff.main.remove(1);
             aff.main.add(Box.createGlue(), 1);
-            // aff.window.remove(info);
+            aff.window.remove(info);
             aff.revalidate();
-            /*
-             * } else {
-             * info.setVerticalAlignment(SwingConstants.BOTTOM);
-             * aff.window.add(info, BorderLayout.WEST);
-             * aff.window.revalidate();
-             * }
-             */
 
+        } else {
+            info.setVerticalAlignment(SwingConstants.BOTTOM);
+            aff.window.add(info, BorderLayout.WEST);
+            aff.window.revalidate();
         }
+
     }
 
     public void tourneDroite() {
@@ -89,7 +87,7 @@ public class PartieGraph extends Partie {
     }
 
     public void tourneGauche() {
-        aff.pioché.tourneDroite();
+        aff.pioché.tourneGauche();
         int i = 0;
         for (Component b : aff.grid.getComponents()) {
             if (table.estPosable(aff.pioché.tuile, i / table.plateau.length, i % table.plateau.length)) {
