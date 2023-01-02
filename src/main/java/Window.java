@@ -5,46 +5,46 @@ import java.awt.event.*;
 public class Window extends JFrame {
     JPanel content;
 
-
-
-    public Window(int nombreJoueur,int nombreIA){
+    public Window(int nombreJoueur, int nombreIA) {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
-        this.setSize(MAXIMIZED_HORIZ,MAXIMIZED_VERT);
+        this.setSize(MAXIMIZED_HORIZ, MAXIMIZED_VERT);
         this.setVisible(true);
         this.setLayout(new BorderLayout());
-        Table t=new Table(11);
-        Sac s=new Sac(t);
+        Table t = new Table(11);
+        Sac s = new Sac(t);
         s.remplirSacDefautCarcasonne();
-        content=new JPanel();
-        content.setPreferredSize(new Dimension((int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight(),(int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight()));
-        content.add(new PartieGraph(3,0,t,s,this)); /*new Menu(this)*/;
-        this.add(content,BorderLayout.CENTER);
+        content = new JPanel();
+        content.setPreferredSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight(),
+                (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
+        content.add(new Affichage(3, 0, t, s, this));
+        /* new Menu(this) */;
+        this.add(content, BorderLayout.CENTER);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 
-
-
-    public class Menu extends JPanel{
+    public class Menu extends JPanel {
         Window window;
-        public Menu(Window window){
-            this.window=window;
-            BoxLayout layout=new BoxLayout(this,BoxLayout.Y_AXIS);
+
+        public Menu(Window window) {
+            this.window = window;
+            BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
             this.setLayout(layout);
 
-            JLabel domino= new JLabel("Domino");
+            JLabel domino = new JLabel("Domino");
             domino.setFocusable(true);
-            domino.setFont(new Font("Impact",Font.BOLD,50));
+            domino.setFont(new Font("Impact", Font.BOLD, 50));
             domino.setFocusCycleRoot(true);
-            JLabel carc=new JLabel("Carcassonne");
+            JLabel carc = new JLabel("Carcassonne");
             carc.setFocusable(true);
-            carc.setFont(new Font("Impact",Font.BOLD,50));
-            JLabel exit=new JLabel("Exit");
+            carc.setFont(new Font("Impact", Font.BOLD, 50));
+            JLabel exit = new JLabel("Exit");
             exit.setFocusable(true);
-            exit.setFont(new Font("Impact",Font.BOLD,50));
+            exit.setFont(new Font("Impact", Font.BOLD, 50));
             this.add(Box.createGlue());
-            ajouteListenersAlign(domino);;
+            ajouteListenersAlign(domino);
+            ;
 
             ajouteListenersAlign(carc);
 
@@ -53,11 +53,11 @@ public class Window extends JFrame {
             carc.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Table t=new Table(10);
+                    Table t = new Table(10);
 
-                    Sac s=new Sac(t);
+                    Sac s = new Sac(t);
 
-                    new PartieGraph(2,0,t,s,window);
+                    new PartieGraph(2, 0, t, s, window);
                 }
             });
 
@@ -81,10 +81,11 @@ public class Window extends JFrame {
             lab.addFocusListener(new FocusListener() {
                 @Override
                 public void focusGained(FocusEvent e) {
-                    lab.setFont(new Font("Impact",Font.BOLD,60));
+                    lab.setFont(new Font("Impact", Font.BOLD, 60));
                     lab.setForeground(Color.RED);
 
                 }
+
                 @Override
                 public void focusLost(FocusEvent e) {
                     lab.setFont(new Font("Impact", Font.BOLD, 50));
@@ -95,6 +96,5 @@ public class Window extends JFrame {
         }
 
     }
-
 
 }

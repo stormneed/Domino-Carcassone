@@ -1,80 +1,92 @@
 public class Table {
     Tuile[][] plateau;
 
-    public Table (int x) {
+    public Table(int x) {
         plateau = new Tuile[x][x];
 
     }
 
-    public Tuile getTuile (int coordX, int coordY) {
+    public Tuile getTuile(int coordX, int coordY) {
         return this.plateau[coordX][coordY];
     }
 
-    public static String reverseString(String str){
-        StringBuilder sb=new StringBuilder(str);
+    public static String reverseString(String str) {
+        StringBuilder sb = new StringBuilder(str);
         sb.reverse();
         return sb.toString();
     }
 
-    public boolean estPosable (Tuile piece, int coordX, int coordY) {
-        if (coordX>0 && plateau[coordX-1][coordY]!=null &&!(plateau[coordX-1][coordY].bords[2].equals(reverseString(piece.bords[0])))) {
+    public boolean estPosable(Tuile piece, int coordX, int coordY) {
+        if (coordX > 0 && plateau[coordX - 1][coordY] != null
+                && !(plateau[coordX - 1][coordY].bords[2].equals(reverseString(piece.bords[0])))) {
             return false;
         }
-        if (coordX<plateau.length-1 && plateau[coordX+1][coordY]!=null && !(plateau[coordX+1][coordY].bords[0].equals(reverseString(piece.bords[2])))){
+        if (coordX < plateau.length - 1 && plateau[coordX + 1][coordY] != null
+                && !(plateau[coordX + 1][coordY].bords[0].equals(reverseString(piece.bords[2])))) {
             return false;
         }
-        if (coordY>0 && plateau[coordX][coordY-1]!=null && !(plateau[coordX][coordY-1].bords[1].equals(reverseString(piece.bords[3])))) {
+        if (coordY > 0 && plateau[coordX][coordY - 1] != null
+                && !(plateau[coordX][coordY - 1].bords[1].equals(reverseString(piece.bords[3])))) {
             return false;
         }
-        if (coordY<plateau.length-1 && plateau[coordX][coordY+1]!=null && !(plateau[coordX][coordY+1].bords[3].equals(reverseString(piece.bords[1])))) {
+        if (coordY < plateau.length - 1 && plateau[coordX][coordY + 1] != null
+                && !(plateau[coordX][coordY + 1].bords[3].equals(reverseString(piece.bords[1])))) {
             return false;
         }
         if (estAdjacent(coordX, coordY)) {
-            return plateau[coordX][coordY]==null;
+            return plateau[coordX][coordY] == null;
         }
         return false;
 
     }
 
-    public boolean possedeBordValide (Tuile piece, int coordX, int coordY) {
+    public boolean possedeBordValide(Tuile piece, int coordX, int coordY) {
         Tuile target = plateau[coordX][coordY];
         if (piece.bords[0].equals(target.bords[0]) || piece.bords[0].equals(target.bords[1])
-         || piece.bords[0].equals(reverseString(target.bords[2])) || piece.bords[0].equals(reverseString(target.bords[3]))) {
+                || piece.bords[0].equals(reverseString(target.bords[2]))
+                || piece.bords[0].equals(reverseString(target.bords[3]))) {
             return true;
         }
         if (piece.bords[1].equals(target.bords[0]) || piece.bords[1].equals(target.bords[1])
-         || piece.bords[1].equals(reverseString(target.bords[2])) || piece.bords[1].equals(reverseString(target.bords[3]))) {
+                || piece.bords[1].equals(reverseString(target.bords[2]))
+                || piece.bords[1].equals(reverseString(target.bords[3]))) {
             return true;
         }
         if (piece.bords[2].equals(target.bords[2]) || piece.bords[2].equals(target.bords[3])
-         || piece.bords[2].equals(reverseString(target.bords[0])) || piece.bords[2].equals(reverseString(target.bords[1]))) {
+                || piece.bords[2].equals(reverseString(target.bords[0]))
+                || piece.bords[2].equals(reverseString(target.bords[1]))) {
             return true;
         }
         if (piece.bords[3].equals(target.bords[2]) || piece.bords[3].equals(target.bords[3])
-         || piece.bords[3].equals(reverseString(target.bords[1])) || piece.bords[0].equals(reverseString(target.bords[2]))) {
+                || piece.bords[3].equals(reverseString(target.bords[1]))
+                || piece.bords[0].equals(reverseString(target.bords[2]))) {
             return true;
         }
         return false;
 
     }
 
-    public boolean estAdjacentNord (int coordX, int coordY) {
-        return coordX>0 && plateau[coordX-1][coordY]!=null;
+    public boolean estVide(int coordX, int coordY) {
+        return plateau[coordX][coordY] == null;
     }
 
-    public boolean estAdjacentSud (int coordX, int coordY) {
-        return coordX<plateau.length-1 && plateau[coordX+1][coordY]!=null;
+    public boolean estAdjacentNord(int coordX, int coordY) {
+        return coordX > 0 && plateau[coordX - 1][coordY] != null;
     }
 
-    public boolean estAdjacentOuest (int coordX, int coordY) {
-        return coordY>0 && plateau[coordX][coordY-1]!=null;
+    public boolean estAdjacentSud(int coordX, int coordY) {
+        return coordX < plateau.length - 1 && plateau[coordX + 1][coordY] != null;
     }
 
-    public boolean estAdjacentEst (int coordX, int coordY) {
-        return coordY<plateau.length-1 && plateau[coordX][coordY+1]!=null;
+    public boolean estAdjacentOuest(int coordX, int coordY) {
+        return coordY > 0 && plateau[coordX][coordY - 1] != null;
     }
 
-    public boolean estAdjacent (int coordX, int coordY) {
+    public boolean estAdjacentEst(int coordX, int coordY) {
+        return coordY < plateau.length - 1 && plateau[coordX][coordY + 1] != null;
+    }
+
+    public boolean estAdjacent(int coordX, int coordY) {
         if (estAdjacentNord(coordX, coordY)) {
             return true;
         }
@@ -90,23 +102,22 @@ public class Table {
         return false;
     }
 
-    public void premierePose(Tuile piece){
-        this.plateau[this.plateau.length/2][this.plateau.length/2]=piece;
+    public void premierePose(Tuile piece) {
+        this.plateau[this.plateau.length / 2][this.plateau.length / 2] = piece;
     }
 
-    public boolean pose(Tuile piece, int coordX, int coordY, Joueur j){
-        if(estPosable(piece,coordX,coordY)){
-            this.plateau[coordX][coordY]=piece;
-            j.pieceMain=null;
+    public boolean pose(Tuile piece, int coordX, int coordY, Joueur j) {
+        if (estPosable(piece, coordX, coordY)) {
+            this.plateau[coordX][coordY] = piece;
+            j.pieceMain = null;
             return true;
-        }
-        else{
+        } else {
             System.out.println("Placement impossible");
             return false;
         }
     }
 
-    public void afficheCons(){
+    public void afficheCons() {
         for (Tuile[] tuiles : plateau) {
             for (Tuile tuile : tuiles) {
                 System.out.print((char) 27 + "[0m ");
@@ -122,7 +133,7 @@ public class Table {
                     if (tuile == null) {
                         System.out.print("*   *|");
                     } else {
-                        System.out.print(tuile.bords[3].charAt(2-j) + "   " + tuile.bords[1].charAt(j) + "|");
+                        System.out.print(tuile.bords[3].charAt(2 - j) + "   " + tuile.bords[1].charAt(j) + "|");
                     }
                 }
             }
@@ -133,10 +144,11 @@ public class Table {
                 if (tuile == null) {
                     System.out.print("*** |");
                 } else {
-                    System.out.print(""+tuile.bords[2].charAt(2) +""+ tuile.bords[2].charAt(1)+""+ tuile.bords[2].charAt(0)+" |");
+                    System.out.print("" + tuile.bords[2].charAt(2) + "" + tuile.bords[2].charAt(1) + ""
+                            + tuile.bords[2].charAt(0) + " |");
                 }
             }
-            System.out.println((char)27+"[0m");
+            System.out.println((char) 27 + "[0m");
 
         }
     }
