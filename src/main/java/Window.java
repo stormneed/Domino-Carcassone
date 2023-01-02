@@ -7,18 +7,18 @@ public class Window extends JFrame {
 
 
 
-    public Window(int nombreJoueur,int nombreIA, Table table, Sac sac){
+    public Window(int nombreJoueur,int nombreIA){
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         this.setSize(MAXIMIZED_HORIZ,MAXIMIZED_VERT);
         this.setVisible(true);
         this.setLayout(new BorderLayout());
-        Table t=new Table(10);
+        Table t=new Table(11);
         Sac s=new Sac(t);
         s.remplirSacDefautCarcasonne();
         content=new JPanel();
         content.setPreferredSize(new Dimension((int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight(),(int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight()));
-        content.add(new PartieGraph(2,0,t,s,this)); /*new Menu(this)*/;
+        content.add(new PartieGraph(3,0,t,s,this)); /*new Menu(this)*/;
         this.add(content,BorderLayout.CENTER);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 

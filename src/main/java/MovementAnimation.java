@@ -1,13 +1,12 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JLabel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class MovementAnimation {
 
     //the window within the animation takes places
-    Window window;
+    JPanel window;
 
     // The component we want to animate
     private TuileGraph label;
@@ -19,12 +18,12 @@ public class MovementAnimation {
     private int interval = 20;
 
     // The amount to move the component per update (in pixels)
-    private int step = 1;
+    private int step = 5;
 
     // The current position of the component
     private int x,y,x1,y1;
 
-    public MovementAnimation(TuileGraph label,int x1,int y1,Window window) {
+    public MovementAnimation(TuileGraph label, int x1, int y1, JPanel window) {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.label = label;
@@ -54,8 +53,9 @@ public class MovementAnimation {
             if(y<y1) y +=step;
             if(y>y1) y -= step;
 
-            label.setLocation(x, y);
             if(x==x1 && y==y1) timer.stop();
+            else label.setLocation(x, y);
+
 
             // If the component has reached the edge of the container, reverse the direction
             if (x + label.getWidth() > window.getWidth() || x < 0) {

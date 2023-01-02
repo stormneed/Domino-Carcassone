@@ -15,10 +15,9 @@ public class PartieCons extends Partie{
             jouerTourCons();
         }
         System.out.println("Fin de la partie");
-        if (vainqueur()!=null) {
+        if (vainqueur() != null) {
             System.out.println("Le vainqueur est Joueur " + vainqueur().numero);
-        }
-        else {
+        } else {
             System.out.println("Il n'y a pas de vainqueur");
         }
         afficheScoreCons();
