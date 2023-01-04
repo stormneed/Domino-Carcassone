@@ -8,8 +8,8 @@ public class Test {
         Table t = new Table(7);
         Sac s = new Sac(t);
         s.remplirSacDefautCarcasonne();
-        /*PartieCons p = new PartieCons(3, 2, t, s);
-        p.jouerPartieCons();*/
+        //PartieCons p = new PartieCons(3, 2, t, s);
+        //p.jouerPartieCons();
         Window p=new Window(2,0);
         p.setVisible(true);
         //TuileCarc tuile=new TuileCarc("V","R","P","R",false, false,false);

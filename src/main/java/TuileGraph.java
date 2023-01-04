@@ -24,7 +24,6 @@ public class TuileGraph extends JButton implements TuileType{
         if (((TuileCarc) t).abbaye) path += "(abbaye)";
         if (((TuileCarc) t).symbole) path += "(symbole)";
         if (((TuileCarc) t).separated) path+="(sep)";
-        if (!new File(path + ".png").exists()) System.out.println(path); ;
         ImageIcon icon=new ImageIcon(path + ".png");
         Image img = icon.getImage() ;
         Image newimg = img.getScaledInstance( (int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight()/11,(int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight()/11 ,  Image.SCALE_DEFAULT ) ;
