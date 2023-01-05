@@ -152,4 +152,8 @@ public class Sac {
         Collections.shuffle(contenu);
     }
 
+    public boolean estVide(){
+        return this.contenu.isEmpty();
+    }
+
 }
