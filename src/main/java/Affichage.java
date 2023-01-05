@@ -105,4 +105,15 @@ public class Affichage extends JPanel {
         this.setVisible(true);
     }
 
+    public void updateScore () {
+        for (int i = 0; i < p.joueurs.size(); i++) {
+            scores.remove(i);
+            score[i] = new JLabel();
+            score[i].setText("Joueur" + (p.joueurs.get(i).numero) + "=" + p.joueurs.get(i).score);
+            score[i].setFont(new Font("Impact", Font.PLAIN, 50));
+            score[i].setAlignmentY(CENTER_ALIGNMENT);
+            scores.add(score[i],i);
+        }
+    } 
+
 }

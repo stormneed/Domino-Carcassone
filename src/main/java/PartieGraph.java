@@ -14,7 +14,6 @@ public class PartieGraph extends Partie {
     public void jouerTourGraph() {
         Joueur actuel = joueurSuivant();
         piocher(actuel);
-
     }
 
     public void piocher(Joueur j) {
@@ -49,9 +48,10 @@ public class PartieGraph extends Partie {
     }
 
     public void poser(int index) {
+        
         JLabel info = new JLabel("Placement Impossible, réessayez");
-        if (table.estPosable(aff.pioché.tuile, index / 11, index % 11)) {
-            table.pose(aff.pioché.tuile, index / 11, index % 11, joueurs.get(indexJoueur));
+        if (table.estPosable(aff.pioché.tuile, index / table.plateau.length, index % 11)) {
+            table.pose(aff.pioché.tuile, index / table.plateau.length, index % 11, joueurs.get(indexJoueur));
             aff.grid.remove(index);
             aff.grid.add(aff.pioché, index);
             aff.main.add(Box.createGlue(), 2);
@@ -62,12 +62,23 @@ public class PartieGraph extends Partie {
             aff.main.remove(1);
             aff.main.add(Box.createGlue(), 1);
             aff.window.remove(info);
+            if (!(this.table.plateau[0][0] instanceof TuileCarc)) {
+                ajouteScore(joueurs.get(indexJoueur), index / table.plateau.length, index % 11);
+                aff.updateScore();
+            }
             aff.revalidate();
 
         } else {
             info.setVerticalAlignment(SwingConstants.BOTTOM);
             aff.window.add(info, BorderLayout.WEST);
             aff.window.revalidate();
+        }
+
+        if (suivantEstIA()) {
+            Joueur actuel = joueurSuivant();
+            aff.pioché = new TuileGraph(actuel.pieceMain);
+            aff.pioché.setVisible(true);
+            tourIA(actuel.pieceMain, actuel);
         }
 
     }
@@ -98,6 +109,41 @@ public class PartieGraph extends Partie {
             }
             i++;
         }
+    }
+
+    public void tourIAGraph (Tuile piece, Joueur ai) {
+        for (int i = 0; i<table.plateau.length; i++) {
+            for (int j = 0; j<table.plateau.length; j++) {
+                if (table.plateau[i][j]!=null) {
+                    if (table.possedeBordValide(piece, i, j)) {
+                        for (int x = 0; x<4; x++) {
+                            if (i<table.plateau.length-1 && table.estPosable(piece, i+1, j)) {
+                                poser(i*table.plateau.length+j);
+                                ajouteScore(ai, i+1, j);                       
+                                return;
+                            }
+                            if (i > 0 && table.estPosable(piece, i-1, j)) {
+                                poser(i*table.plateau.length+j);
+                                ajouteScore(ai, i-1, j);   
+                                return;
+                            }
+                            if (j < table.plateau.length-1 && table.estPosable(piece, i, j+1)) {
+                                poser(i*table.plateau.length+j);
+                                ajouteScore(ai, i, j+1);   
+                                return;
+                            }
+                            if (j > 0 && table.estPosable(piece, i, j-1)) {
+                                poser(i*table.plateau.length+j);
+                                ajouteScore(ai, i, j-1);    
+                                return;
+                            }
+                            piece.tourneDroite();
+                        }
+                    }
+                }
+            }
+        }
+        ai.defausser();
     }
 
 }

@@ -32,6 +32,15 @@ public class Partie {
         return returnJoueur;
     }
 
+    public boolean suivantEstIA () {
+        if (indexJoueur==joueurs.size()-1) {
+            return joueurs.get(0).estIA;
+        }
+        else {
+            return joueurs.get(indexJoueur+1).estIA;
+        }
+    }
+
     public void tourIA (Tuile piece, Joueur ai) {
         for (int i = 0; i<table.plateau.length; i++) {
             for (int j = 0; j<table.plateau.length; j++) {

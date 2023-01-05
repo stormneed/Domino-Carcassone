@@ -16,7 +16,7 @@ public class Window extends JFrame {
         s.remplirSacDefautDomino();
         content=new JPanel();
         content.setPreferredSize(new Dimension((int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight(),(int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight()));
-        content.add( /*new Menu(this)*/new Affichage(3, 0, t, s, this) );
+        content.add( /*new Menu(this)*/new Affichage(2, 1, t, s, this) );
         this.add(content,BorderLayout.CENTER);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
