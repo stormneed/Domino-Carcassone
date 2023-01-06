@@ -109,12 +109,9 @@ public class TuileGraph extends JButton implements TuileType{
         this.revalidate();
     }
 
-    public void tourneDroite(){
+    public void tourneDroite() {
         tuile.tourneDroite();
         this.setIcon(matchIcon(tuile));
         this.revalidate();
-    }
-
-    public void removeActionListener() {
     }
 }

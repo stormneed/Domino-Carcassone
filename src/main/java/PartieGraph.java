@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 public class PartieGraph extends Partie {
 
@@ -96,20 +96,54 @@ public class PartieGraph extends Partie {
 
         if(sac.estVide()){
             aff.removeAll();
+            JPanel column=new JPanel();
+            column.setLayout(new BoxLayout(column,BoxLayout.Y_AXIS));
             JLabel victory=new JLabel("Game Over");
             victory.setFont(new Font("Impact",Font.BOLD,80));
-            aff.add(victory);
+            column.add(victory);
             if(!(lastput.tuile instanceof TuileCarc)){
                 if(vainqueur()!=null) {
                     JLabel winner = new JLabel("Joueur " + vainqueur().numero + " a gagné");
-                    aff.add(winner);
+                    winner.setFont(new Font("Impact",0,50));
+                    column.add(winner);
                 }
                 else{
                     JLabel winner = new JLabel("Egalité");
-                    aff.add(winner);
+                    column.add(winner);
                 }
 
             }
+
+            JLabel exit = new JLabel("Exit");
+            exit.setFocusable(true);
+            exit.setFont(new Font("Impact", Font.BOLD, 50));
+            exit.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+                public void mouseEntered(MouseEvent e) {
+                        exit.grabFocus();
+                    }
+            });
+
+            exit.addFocusListener(new FocusListener() {
+                    @Override
+                    public void focusGained(FocusEvent e) {
+                        exit.setFont(new Font("Impact", Font.BOLD, 60));
+                        exit.setForeground(Color.RED);
+
+                    }
+                public void focusLost(FocusEvent e) {
+                    exit.setFont(new Font("Impact", Font.BOLD, 50));
+                    exit.setForeground(Color.BLACK);
+                }
+
+            });
+
+
+            column.add(exit);
+            aff.add(column);
             aff.revalidate();
 
         }
@@ -119,6 +153,7 @@ public class PartieGraph extends Partie {
             aff.pioché = new TuileGraph(tmp.pieceMain,table.plateau.length);
             aff.pioché.setVisible(true);
             tourIAGraph(tmp.pieceMain, tmp);
+            aff.refresh();
         }
 
 
@@ -162,23 +197,23 @@ public class PartieGraph extends Partie {
                             if (i<table.plateau.length-1 && table.estPosable(piece, i+1, j)) {
 
                                 poser((i+1)*table.plateau.length+j);
-                                aff.refresh();
+
                                 return;
                             }
                             if (i > 0 && table.estPosable(piece, i-1, j)) {
                                 poser((i-1)*table.plateau.length+j);
-                                aff.refresh();
+
                                 return;
                             }
                             if (j < table.plateau.length-1 && table.estPosable(piece, i, j+1)) {
                                 poser(i*table.plateau.length+(j+1));
-                                aff.refresh();
+
 
                                 return;
                             }
                             if (j > 0 && table.estPosable(piece, i, j-1)) {
                                 poser(i*table.plateau.length+(j-1));
-                                aff.refresh();
+
                                 return;
                             }
                             aff.pioché.tourneDroite();
