@@ -36,7 +36,13 @@ public class Affichage extends JPanel {
 
         for (int i = 0; i < nombreJoueur; i++) {
             score[i] = new JLabel();
-            score[i].setText("Joueur" + (i + 1) + "=0");
+            if(sac.contenu.getFirst() instanceof TuileCarc){
+                score[i].setIcon(new ImageIcon("ressources/pion/pion"+(i+1)+".png"));
+                score[i].setText("Joueur" + (i + 1));
+            }
+            else {
+                score[i].setText("Joueur" + (i + 1) + "=0");
+            }
             score[i].setFont(new Font("Impact", Font.PLAIN, 50));
             score[i].setAlignmentY(CENTER_ALIGNMENT);
             scores.add(score[i]);
@@ -86,14 +92,14 @@ public class Affichage extends JPanel {
             }
         });
 
-        TuileGraph start = new TuileGraph(sac.contenu.getFirst());
+        TuileGraph start = new TuileGraph(sac.contenu.getFirst(),table.plateau.length);
         sac.contenu.removeFirst();
-        grid.remove(60);
-        grid.add(start, 60);
+        grid.remove(grid.getComponentCount()/2);
+        grid.add(start, grid.getComponentCount()/2);
         table.premierePose(start.tuile);
 
         pioché = new TuileGraph();
-        pioché.setPreferredSize(new Dimension(60, 60));
+        pioché.setPreferredSize(new Dimension(start.getWidth(), start.getHeight()));
         main.add(Box.createGlue());
         main.add(Box.createGlue());
         main.add(Box.createGlue());
@@ -106,14 +112,28 @@ public class Affichage extends JPanel {
     }
 
     public void updateScore () {
-        for (int i = 0; i < p.joueurs.size(); i++) {
-            scores.remove(i);
-            score[i] = new JLabel();
-            score[i].setText("Joueur" + (p.joueurs.get(i).numero) + "=" + p.joueurs.get(i).score);
-            score[i].setFont(new Font("Impact", Font.PLAIN, 50));
-            score[i].setAlignmentY(CENTER_ALIGNMENT);
-            scores.add(score[i],i);
+        if(!(pioché.tuile instanceof TuileCarc)){
+            for (int i = 0; i < p.joueurs.size(); i++) {
+                scores.remove(i);
+                score[i] = new JLabel();
+                score[i].setText("Joueur" + (p.joueurs.get(i).numero) + "=" + p.joueurs.get(i).score);
+                score[i].setFont(new Font("Impact", Font.PLAIN, 50));
+                score[i].setAlignmentY(CENTER_ALIGNMENT);
+                scores.add(score[i], i);
+            }
         }
-    } 
+    }
+
+    public void refresh(){
+        for(int i=0;i<p.table.plateau.length;i++){
+            for(int j=0;i<p.table.plateau.length;i++){
+                if(p.table.plateau[i][j]!=null && !(grid.getComponent(i*p.table.plateau.length+j) instanceof TuileGraph)){
+                    grid.remove(i*p.table.plateau.length+j);
+                    grid.add(new TuileGraph(p.table.plateau[i][j],p.table.plateau.length));
+                    grid.revalidate();
+                }
+            }
+        }
+    }
 
 }

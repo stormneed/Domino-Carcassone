@@ -13,10 +13,10 @@ public class Window extends JFrame {
         this.setLayout(new BorderLayout());
         Table t=new Table(11);
         Sac s=new Sac(t);
-        s.remplirSacDefautDomino();
+        s.remplirSacDefautCarcasonne();
         content=new JPanel();
         content.setPreferredSize(new Dimension((int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight(),(int)Toolkit. getDefaultToolkit(). getScreenSize().getHeight()));
-        content.add( /*new Menu(this)*/new Affichage(2, 1, t, s, this) );
+        content.add( /*new Menu(this)*/new Affichage(4, 3   , t, s, this) );
         this.add(content,BorderLayout.CENTER);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 

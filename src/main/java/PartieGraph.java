@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class PartieGraph extends Partie {
 
     Affichage aff;
 
+    TuileGraph lastput;
     public PartieGraph(int nombreJoueur, int nombreIA, Table table, Sac sac, Affichage aff) {
         super(nombreJoueur, nombreIA, table, sac);
         this.aff = aff;
@@ -17,11 +19,12 @@ public class PartieGraph extends Partie {
     }
 
     public void piocher(Joueur j) {
-        TuileGraph tg = new TuileGraph(j.pieceMain);
+        TuileGraph tg = new TuileGraph(j.pieceMain,11);
         tg.setPreferredSize(new Dimension(80, 80));
         tg.setHorizontalAlignment(SwingConstants.CENTER);
         j.pieceMain = null;
         aff.pioché = tg;
+        aff.pioché.setPreferredSize(new Dimension(tg.getPreferredSize()));
         tg.setVisible(true);
         aff.main.remove(2);
         aff.main.add(tg, 2);
@@ -38,48 +41,87 @@ public class PartieGraph extends Partie {
         aff.main.remove(1);
         aff.main.add(aff.tournes, 1);
         aff.revalidate();
-        /*
-         * MovementAnimation mv=new
-         * MovementAnimation(tg,tg.getX(),window.getHeight()/2,main);
-         * mv.start();
-         * pg.add(tg,BorderLayout.CENTER);
-         */
 
     }
 
     public void poser(int index) {
-        
-        JLabel info = new JLabel("Placement Impossible, réessayez");
-        if (table.estPosable(aff.pioché.tuile, index / table.plateau.length, index % 11)) {
-            table.pose(aff.pioché.tuile, index / table.plateau.length, index % 11, joueurs.get(indexJoueur));
-            aff.grid.remove(index);
-            aff.grid.add(aff.pioché, index);
-            aff.main.add(Box.createGlue(), 2);
-            for (Component b : aff.grid.getComponents()) {
-                if (!(b instanceof TuileGraph))
-                    b.setEnabled(false);
+        table.pose(aff.pioché.tuile, index / table.plateau.length, index % table.plateau.length, actuel);
+        aff.grid.remove(index);
+        aff.main.remove(2);
+        lastput=new TuileGraph(aff.pioché.tuile,table.plateau.length);
+        aff.grid.add(lastput, index);
+        lastput.removeActionListener((e) -> {
+            String[] optionsToChoose = {"nord", "sud", "est", "west"};
+            String getBord = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Sur quels bord voulez vous votre pion? ",
+                    "Choisissez un bord",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    optionsToChoose,
+                    optionsToChoose[3]);
+
+            lastput.posePion(getBord, actuel.numero);
+            aff.revalidate();
+        });
+        if(lastput.tuile instanceof TuileCarc) {
+            lastput.addActionListener( (e) -> {
+                    String[] optionsToChoose = {"nord", "sud", "est", "west"};
+                    String getBord = (String) JOptionPane.showInputDialog(
+                            null,
+                            "Sur quels bord voulez vous votre pion? ",
+                            "Choisissez un bord",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            optionsToChoose,
+                            optionsToChoose[3]);
+                    lastput.posePion(getBord, actuel.numero);
+                    aff.revalidate();
+                });
             }
-            aff.main.remove(1);
-            aff.main.add(Box.createGlue(), 1);
-            aff.window.remove(info);
-            if (!(this.table.plateau[0][0] instanceof TuileCarc)) {
-                ajouteScore(joueurs.get(indexJoueur), index / table.plateau.length, index % 11);
-                aff.updateScore();
+        for (Component b : aff.grid.getComponents()) {
+            if (!(b instanceof TuileGraph))
+                b.setEnabled(false);
+        }
+
+        aff.main.remove(1);
+        aff.main.add(Box.createGlue(), 1);
+        aff.main.add(Box.createGlue(),2);
+
+        if (!(this.table.plateau[0][0] instanceof TuileCarc)) {
+            ajouteScore(actuel, index / table.plateau.length, index % table.plateau.length);
+            aff.updateScore();
+        }
+        aff.revalidate();
+
+        if(sac.estVide()){
+            aff.removeAll();
+            JLabel victory=new JLabel("Game Over");
+            victory.setFont(new Font("Impact",Font.BOLD,80));
+            aff.add(victory);
+            if(!(lastput.tuile instanceof TuileCarc)){
+                if(vainqueur()!=null) {
+                    JLabel winner = new JLabel("Joueur " + vainqueur().numero + " a gagné");
+                    aff.add(winner);
+                }
+                else{
+                    JLabel winner = new JLabel("Egalité");
+                    aff.add(winner);
+                }
+
             }
             aff.revalidate();
 
-        } else {
-            info.setVerticalAlignment(SwingConstants.BOTTOM);
-            aff.window.add(info, BorderLayout.WEST);
-            aff.window.revalidate();
         }
 
         if (suivantEstIA()) {
-            Joueur actuel = joueurSuivant();
-            aff.pioché = new TuileGraph(actuel.pieceMain);
+            Joueur tmp = joueurSuivant();
+            aff.pioché = new TuileGraph(tmp.pieceMain,table.plateau.length);
             aff.pioché.setVisible(true);
-            tourIA(actuel.pieceMain, actuel);
+            tourIAGraph(tmp.pieceMain, tmp);
         }
+
+
 
     }
 
@@ -118,26 +160,28 @@ public class PartieGraph extends Partie {
                     if (table.possedeBordValide(piece, i, j)) {
                         for (int x = 0; x<4; x++) {
                             if (i<table.plateau.length-1 && table.estPosable(piece, i+1, j)) {
-                                poser(i*table.plateau.length+j);
-                                ajouteScore(ai, i+1, j);                       
+
+                                poser((i+1)*table.plateau.length+j);
+                                aff.refresh();
                                 return;
                             }
                             if (i > 0 && table.estPosable(piece, i-1, j)) {
-                                poser(i*table.plateau.length+j);
-                                ajouteScore(ai, i-1, j);   
+                                poser((i-1)*table.plateau.length+j);
+                                aff.refresh();
                                 return;
                             }
                             if (j < table.plateau.length-1 && table.estPosable(piece, i, j+1)) {
-                                poser(i*table.plateau.length+j);
-                                ajouteScore(ai, i, j+1);   
+                                poser(i*table.plateau.length+(j+1));
+                                aff.refresh();
+
                                 return;
                             }
                             if (j > 0 && table.estPosable(piece, i, j-1)) {
-                                poser(i*table.plateau.length+j);
-                                ajouteScore(ai, i, j-1);    
+                                poser(i*table.plateau.length+(j-1));
+                                aff.refresh();
                                 return;
                             }
-                            piece.tourneDroite();
+                            aff.pioché.tourneDroite();
                         }
                     }
                 }

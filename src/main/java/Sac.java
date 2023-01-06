@@ -12,9 +12,7 @@ public class Sac {
         contenu = new LinkedList<Tuile>();
     }
 
-    public void ajouter(Tuile piece) {
-        contenu.add(piece);
-    }
+
 
     public void remplirSacDefautDomino() {
         contenu.add(new Tuile("212", "222", "303", "040"));
@@ -118,28 +116,7 @@ public class Sac {
         contenu.add(new TuileCarc("P", "V", "P", "V", false, false, true));
     }
 
-    private void genereSacRec(int nbr) {
-        Tuile tmp = contenu.getLast();
-        for (int i = 0; i < 4; i++) {
-            if (nombrePiece < nbr) {
-                contenu.add(Tuile.genereTuile(tmp.bords[i]));
-                nombrePiece++;
-                if (Math.random() < 0.10 * i)
-                    genereSacRec(nbr);
-            }
-        }
-    }
 
-    public void genereSac(int nbr) {
-        Tuile tmp = Tuile
-                .genereTuile("" + (int) (Math.random() * 5) + (int) (Math.random() * 5) + (int) (Math.random() * 5));
-        contenu.add(tmp);
-        nombrePiece++;
-        while (nombrePiece < nbr) {
-            genereSacRec(nbr);
-        }
-        // melanger();
-    }
 
     public Tuile piocher() {
         Tuile t = contenu.getFirst();

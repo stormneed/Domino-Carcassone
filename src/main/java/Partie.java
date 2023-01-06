@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Partie {
     Sac sac;
     ArrayList<Joueur> joueurs;
+
+    Joueur actuel;
     Table table;
     int indexJoueur;
 
@@ -29,16 +31,12 @@ public class Partie {
         }
         else {indexJoueur+=1;}
         returnJoueur.piocher();
+        actuel=returnJoueur;
         return returnJoueur;
     }
 
     public boolean suivantEstIA () {
-        if (indexJoueur==joueurs.size()-1) {
-            return joueurs.get(0).estIA;
-        }
-        else {
-            return joueurs.get(indexJoueur+1).estIA;
-        }
+        return joueurs.get(indexJoueur).estIA;
     }
 
     public void tourIA (Tuile piece, Joueur ai) {
@@ -96,8 +94,10 @@ public class Partie {
 
 
     public void ajouteScore (Joueur j, int coordX, int coordY) {
+
         Tuile current = table.plateau[coordX][coordY];
-        if (current!=null) {
+
+        if (current!=null && !(current instanceof TuileCarc)) {
             if (table.estAdjacentNord(coordX, coordY)) {
                 j.score +=
                         current.bords[0].charAt(0) +
