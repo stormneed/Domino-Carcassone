@@ -51,7 +51,7 @@ public class PartieGraph extends Partie {
         lastput=new TuileGraph(aff.pioché.tuile,table.plateau.length);
         aff.grid.add(lastput, index);
         lastput.removeActionListener((e) -> {
-            String[] optionsToChoose = {"nord", "sud", "est", "west"};
+            String[] optionsToChoose = {"nord", "sud", "est", "ouest"};
             String getBord = (String) JOptionPane.showInputDialog(
                     null,
                     "Sur quels bord voulez vous votre pion? ",
@@ -66,7 +66,7 @@ public class PartieGraph extends Partie {
         });
         if(lastput.tuile instanceof TuileCarc) {
             lastput.addActionListener( (e) -> {
-                    String[] optionsToChoose = {"nord", "sud", "est", "west"};
+                    String[] optionsToChoose = {"nord", "sud", "est", "ouest"};
                     String getBord = (String) JOptionPane.showInputDialog(
                             null,
                             "Sur quels bord voulez vous votre pion? ",
