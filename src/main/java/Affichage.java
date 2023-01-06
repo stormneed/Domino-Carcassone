@@ -60,7 +60,7 @@ public class Affichage extends JPanel {
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
         tournes = new JPanel();
-        tournes.setLayout(new BoxLayout(tournes, BoxLayout.X_AXIS));
+        tournes.setLayout(new BoxLayout(tournes, BoxLayout.Y_AXIS));
         tourneGauche = new JButton(new ImageIcon("ressources/icon/tourneGauche.png"));
         tourneDroite = new JButton(new ImageIcon("ressources/icon/tourneDroite.png"));
 
