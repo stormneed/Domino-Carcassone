@@ -48,22 +48,15 @@ public class PartieGraph extends Partie {
         table.pose(aff.pioché.tuile, index / table.plateau.length, index % table.plateau.length, actuel);
         aff.grid.remove(index);
         aff.main.remove(2);
+        if(lastput!=null) {
+            for (ActionListener al : lastput.getActionListeners()) {
+                lastput.removeActionListener(al);
+            }
+        }
         lastput=new TuileGraph(aff.pioché.tuile,table.plateau.length);
         aff.grid.add(lastput, index);
-        lastput.removeActionListener((e) -> {
-            String[] optionsToChoose = {"nord", "sud", "est", "west"};
-            String getBord = (String) JOptionPane.showInputDialog(
-                    null,
-                    "Sur quels bord voulez vous votre pion? ",
-                    "Choisissez un bord",
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    optionsToChoose,
-                    optionsToChoose[3]);
 
-            lastput.posePion(getBord, actuel.numero);
-            aff.revalidate();
-        });
+
         if(lastput.tuile instanceof TuileCarc) {
             lastput.addActionListener( (e) -> {
                     String[] optionsToChoose = {"nord", "sud", "est", "west"};
